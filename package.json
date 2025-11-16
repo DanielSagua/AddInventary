@@ -1,0 +1,26 @@
+{
+    "name": "inventario-app",
+    "version": "1.0.0",
+    "description": "Aplicación de inventario corporativo (AddInventary)",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js"
+    },
+    "keywords": [],
+    "author": "Daniel Sagua",
+    "license": "MIT",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.20.3",
+        "connect-flash": "^0.1.1",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.2",
+        "express-session": "^1.18.1",
+        "mssql": "^10.0.2",
+        "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.0"
+    }
+}
