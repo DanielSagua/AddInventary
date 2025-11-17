@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>AddInventary - Bodegas y Ubicaciones</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <style>
+        .section-title {
+            color: #005387;
+            font-weight: bold;
+        }
+
+        .table thead {
+            background: #005387;
+            color: white;
+        }
+
+        .selected-row {
+            background-color: #c9e3f7 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/home">AddInventary</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="/productos">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/stock">Stock</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/movimientos">Movimientos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/conteos">Conteos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reportes">Reportes</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/bodegas">Bodegas</a></li>
+                </ul>
+
+                <a href="/logout" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+
+        <!-- =====================================
+                SECCIÓN BODEGAS
+        ====================================== -->
+        <h3 class="section-title mb-3">Bodegas</h3>
+
+        <div class="text-end mb-3">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearBodega">
+                + Agregar bodega
+            </button>
+        </div>
+
+        <table class="table table-bordered table-sm shadow-sm" id="tablaBodegas">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Comuna</th>
+                    <th>Ciudad</th>
+                    <th>Responsable</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbodyBodegas"></tbody>
+        </table>
+
+
+        <!-- =====================================
+                SECCIÓN UBICACIONES DE LA BODEGA
+        ====================================== -->
+
+        <h3 class="section-title mt-5">Ubicaciones de la bodega seleccionada</h3>
+
+        <div class="text-end mb-3">
+            <button class="btn btn-success" id="btnAddUbicacion" disabled data-bs-toggle="modal"
+                data-bs-target="#modalCrearUbicacion">
+                + Agregar ubicación
+            </button>
+        </div>
+
+        <table class="table table-bordered table-sm shadow-sm">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Pasillo</th>
+                    <th>Rack</th>
+                    <th>Nivel</th>
+                    <th>Descripción</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbodyUbicaciones">
+                <tr>
+                    <td colspan="6" class="text-center text-muted">
+                        Seleccione una bodega para ver las ubicaciones
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+    <!-- =======================================
+              MODAL CREAR BODEGA
+    ======================================== -->
+    <div class="modal fade" id="modalCrearBodega" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Crear bodega</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" id="crearBodegaNombre" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" id="crearBodegaDireccion" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Comuna</label>
+                        <input type="text" id="crearBodegaComuna" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ciudad</label>
+                        <input type="text" id="crearBodegaCiudad" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Responsable</label>
+                        <input type="text" id="crearBodegaResponsable" class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="btnCrearBodega">Guardar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- =======================================
+              MODAL EDITAR BODEGA
+    ======================================== -->
+    <div class="modal fade" id="modalEditarBodega" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">Editar bodega</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="editBodegaId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" id="editBodegaNombre" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" id="editBodegaDireccion" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Comuna</label>
+                        <input type="text" id="editBodegaComuna" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ciudad</label>
+                        <input type="text" id="editBodegaCiudad" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Responsable</label>
+                        <input type="text" id="editBodegaResponsable" class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-warning" id="btnActualizarBodega">Actualizar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- =======================================
+              MODAL CREAR UBICACIÓN
+    ======================================== -->
+    <div class="modal fade" id="modalCrearUbicacion" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Agregar ubicación</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Pasillo</label>
+                        <input type="text" id="crearUbPasillo" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Rack</label>
+                        <input type="text" id="crearUbRack" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nivel</label>
+                        <input type="text" id="crearUbNivel" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <input type="text" id="crearUbDescripcion" class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="btnCrearUbicacion">Guardar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- =======================================
+              MODAL EDITAR UBICACIÓN
+    ======================================== -->
+    <div class="modal fade" id="modalEditarUbicacion" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Editar ubicación</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="editUbId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Pasillo</label>
+                        <input type="text" id="editUbPasillo" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Rack</label>
+                        <input type="text" id="editUbRack" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nivel</label>
+                        <input type="text" id="editUbNivel" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <input type="text" id="editUbDescripcion" class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-info text-white" id="btnActualizarUbicacion">
+                        Actualizar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bodegas.js"></script>
+
+</body>
+
+</html>

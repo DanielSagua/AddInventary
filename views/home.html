@@ -6,24 +6,41 @@
     <meta charset="UTF-8" />
     <title>AddInventary - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/styles.css" />
+
+    <style>
+        .section-title {
+            color: #005387;
+            font-weight: bold;
+        }
+
+        .card-title {
+            color: #005387;
+            font-weight: 600;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            transition: 0.2s ease-in-out;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#005387;">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="/home">
                 AddInventary
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
+            <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
@@ -47,20 +64,23 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" href="/bodegas">Bodegas</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="/usuarios">Usuarios</a>
                     </li>
 
                 </ul>
 
                 <div class="d-flex align-items-center gap-2">
-                    <span class="navbar-text small d-none d-md-inline">
+                    <span class="navbar-text small text-white d-none d-md-inline">
                         Sesión activa
                     </span>
                     <a href="/logout" class="btn btn-outline-light btn-sm">
                         Cerrar sesión
                     </a>
                 </div>
-
             </div>
         </div>
     </nav>
@@ -68,11 +88,11 @@
     <main class="container py-4">
         <div class="row">
             <div class="col-12 mb-3">
-                <h4 class="fw-bold" style="color:#005387;">Panel principal</h4>
+                <h3 class="section-title">Panel principal</h3>
                 <p class="text-muted mb-4">
                     Bienvenido al sistema corporativo de inventario AddInventary.
-                    Desde aquí podrás administrar productos, stock, movimientos, conteos
-                    y reportes del inventario.
+                    Selecciona un módulo para gestionar productos, stock, movimientos,
+                    conteos, reportes, bodegas y usuarios.
                 </p>
             </div>
 
@@ -80,9 +100,9 @@
             <div class="col-md-4 mb-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h6 class="card-title fw-bold">Productos</h6>
+                        <h6 class="card-title">Productos</h6>
                         <p class="card-text small text-muted">
-                            Gestión de productos, códigos de barra, SKU y clasificaciones.
+                            Gestión de productos y códigos de barra.
                         </p>
                         <a href="/productos" class="btn btn-sm btn-primary">Ir a Productos</a>
                     </div>
@@ -93,9 +113,9 @@
             <div class="col-md-4 mb-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h6 class="card-title fw-bold">Movimientos</h6>
+                        <h6 class="card-title">Movimientos</h6>
                         <p class="card-text small text-muted">
-                            Registro de entradas, salidas y ajustes del inventario.
+                            Entradas, salidas y ajustes de inventario.
                         </p>
                         <a href="/movimientos" class="btn btn-sm btn-primary">Ir a Movimientos</a>
                     </div>
@@ -106,9 +126,9 @@
             <div class="col-md-4 mb-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h6 class="card-title fw-bold">Stock</h6>
+                        <h6 class="card-title">Stock</h6>
                         <p class="card-text small text-muted">
-                            Consulta del stock por producto, bodega y ubicación.
+                            Consulta de stock por producto, bodega y ubicación.
                         </p>
                         <a href="/stock" class="btn btn-sm btn-primary">Ir a Stock</a>
                     </div>
@@ -119,9 +139,9 @@
             <div class="col-md-4 mb-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h6 class="card-title fw-bold">Conteos</h6>
+                        <h6 class="card-title">Conteos</h6>
                         <p class="card-text small text-muted">
-                            Conteos cíclicos y generales de inventario.
+                            Conteos cíclicos y generales del inventario.
                         </p>
                         <a href="/conteos" class="btn btn-sm btn-primary">Ir a Conteos</a>
                     </div>
@@ -132,11 +152,24 @@
             <div class="col-md-4 mb-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h6 class="card-title fw-bold">Reportes</h6>
+                        <h6 class="card-title">Reportes</h6>
                         <p class="card-text small text-muted">
-                            Informes corporativos de stock, movimientos y variaciones.
+                            Informes corporativos de inventario.
                         </p>
                         <a href="/reportes" class="btn btn-sm btn-primary">Ir a Reportes</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bodegas -->
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Bodegas</h6>
+                        <p class="card-text small text-muted">
+                            Administración de bodegas y ubicaciones internas.
+                        </p>
+                        <a href="/bodegas" class="btn btn-sm btn-primary">Ir a Bodegas</a>
                     </div>
                 </div>
             </div>
@@ -145,9 +178,9 @@
             <div class="col-md-4 mb-3">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
-                        <h6 class="card-title fw-bold">Usuarios</h6>
+                        <h6 class="card-title">Usuarios</h6>
                         <p class="card-text small text-muted">
-                            Administración de usuarios del sistema y roles.
+                            Gestión de usuarios y roles del sistema.
                         </p>
                         <a href="/usuarios" class="btn btn-sm btn-primary">Ir a Usuarios</a>
                     </div>
@@ -158,7 +191,6 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>

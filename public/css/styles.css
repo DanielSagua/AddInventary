@@ -68,3 +68,9 @@ body {
     font-weight: 700;
     color: var(--primary-color);
 }
+
+/* Forzar color de fila seleccionada */
+#tbodyBodegas tr.selected-row td,
+#tbodyBodegas tr.selected-row {
+    background-color: #c9e3f7 !important;
+}

@@ -36,9 +36,23 @@ async function cargarProductos() {
 
 async function cargarBodegas() {
     try {
-        const resp = await fetch("/stock/api/bodegas"); // OPCIONAL, te explico abajo
-    } catch { }
+        const resp = await fetch('/bodegas/api');
+        const json = await resp.json();
+
+        const cb = document.getElementById('mov_id_bodega');
+        cb.innerHTML = '<option value="">Seleccione bodega</option>';
+
+        if (!json.ok) return;
+
+        json.bodegas.forEach(b => {
+            cb.innerHTML += `<option value="${b.id_bodega}">${b.nombre_bodega}</option>`;
+        });
+
+    } catch (err) {
+        console.error("Error cargarBodegas:", err);
+    }
 }
+
 
 // OJO: como no tenemos endpoint de bodegas todavía, lo completaré luego
 // Por ahora lo dejaremos así: las bodegas se cargarán desde un endpoint temporal directamente en movimientoController

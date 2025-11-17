@@ -14,7 +14,7 @@ const movimientoRoutes = require('./routes/movimientoRoutes');
 const conteoRoutes = require('./routes/conteoRoutes');
 const reporteRoutes = require('./routes/reporteRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
-
+const bodegaRoutes = require('./routes/bodegaRoutes');
 
 const { ensureAuthenticated } = require('./middleware/authMiddleware');
 
@@ -61,7 +61,7 @@ app.use('/movimientos', ensureAuthenticated, movimientoRoutes);
 app.use('/conteos', ensureAuthenticated, conteoRoutes);
 app.use('/reportes', ensureAuthenticated, reporteRoutes);
 app.use('/usuarios', ensureAuthenticated, usuarioRoutes);
-
+app.use('/bodegas', ensureAuthenticated, bodegaRoutes);
 
 // Redirección raíz
 app.get('/', (req, res) => {
