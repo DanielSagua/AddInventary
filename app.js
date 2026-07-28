@@ -19,7 +19,7 @@ const bodegaRoutes = require('./routes/bodegaRoutes');
 const { ensureAuthenticated } = require('./middleware/authMiddleware');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3003;
 
 
 
